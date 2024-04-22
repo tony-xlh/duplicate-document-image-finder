@@ -11,10 +11,14 @@
     <script type="module" src="/src/main.ts"></script>
     <script>
       let finder;
-      window.onload = function(){
-        finder = new DuplicateDocumentImageFinder();
-        console.log(finder);
-      }
+      var Module = {
+        // https://emscripten.org/docs/api_reference/module.html#Module.onRuntimeInitialized
+        onRuntimeInitialized() {
+          finder = new DuplicateDocumentImageFinder();
+          console.log(finder);
+        }
+      };
     </script>
+    <script async src="/opencv.js" type="text/javascript"></script>
   </body>
 </html>
