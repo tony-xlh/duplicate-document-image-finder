@@ -1,4 +1,5 @@
 import leven from "leven";
+import { createWorker,Worker } from 'tesseract.js';
 
 export interface TextLine{
   x:number;
@@ -8,18 +9,13 @@ export interface TextLine{
   text:string;
 }
 export class DuplicateDocumentImageFinder {
-  private tess:any;
+  private tess:Worker|undefined;
   private threshold:number = 0.7;
   private tessLogger:any = function(m:any){console.log(m);}
   async initTesseract(lang:string){
-    if (!("Tesseract" in window)) {
-      throw new Error("Tesseract not found");
-    }else{
-      let Tesseract = (window as any)["Tesseract"];
-      this.tess = await Tesseract.createWorker(lang, 1, {
-        logger: this.tessLogger
-      });
-    }
+    this.tess = await createWorker(lang, 1, {
+      logger: this.tessLogger
+    });
   }
 
   setThreshold(threshold:number) {
@@ -64,7 +60,7 @@ export class DuplicateDocumentImageFinder {
     }
     const textLines:TextLine[] = [];
     const threshold = confidenceThreshold ?? 50;
-    const result = await this.tess.recognize(source);
+    const result = await this.tess!.recognize(source);
     const lines = result.data.lines;
     for (let index = 0; index < lines.length; index++) {
       const line = lines[index];
