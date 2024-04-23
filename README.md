@@ -6,6 +6,8 @@ How does it work?
 
 It extracts the text of images using OCR and uses levenshtein distance to calculate the similarity between two texts.
 
+[Online demo](https://tony-xlh.github.io/duplicate-document-image-finder/)
+
 ## Methods and Interfaces
 
 * `find`. Find the duplicated images. You can pass your own OCR results.

@@ -1,7 +1,7 @@
 {
   "name": "duplicate-document-image-finder",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/duplicate-document-image-finder.umd.cjs",
   "module": "./dist/duplicate-document-image-finder.js",
