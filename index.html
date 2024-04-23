@@ -19,6 +19,7 @@
     <div id="app">
       <h2>Duplicate Document Image Finder</h2>
       <button id="loadFileButton">Load Images</button>
+      <button id="findButton">Find Duplicate Images</button>
       <input style="display:none;" multiple type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
       <div class="images">
       </div>
@@ -39,6 +40,23 @@
         document.getElementById("loadFileButton").addEventListener("click",function(){
           document.getElementById("file").click();
         })
+        document.getElementById("findButton").addEventListener("click",function(){
+          findDuplicateImages();
+        })
+      }
+
+      function findDuplicateImages(){
+        let tbody = document.getElementsByTagName("tbody")[0];
+        let images = [];
+        for (let index = 0; index < tbody.children.length; index++) {
+          const tr = tbody.children[index];
+          const img = tr.getElementsByTagName("img")[0];
+          images.push(img);
+        }
+        if (images.length>1) {
+          let result = finder.detect(images[0],images[1]);
+          console.log(result);
+        }
       }
 
       async function loadImageFromFile(){
