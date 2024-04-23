@@ -1,4 +1,4 @@
-import { DuplicateDocumentImageFinder } from "./DuplicateDocumentImageFinder";
+import { DuplicateDocumentImageFinder } from "./duplicate-document-image-finder";
 
 (window as any)["DuplicateDocumentImageFinder"] = DuplicateDocumentImageFinder;
 
