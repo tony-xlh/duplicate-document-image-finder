@@ -22,9 +22,9 @@
       <button id="cropButton">Crop Images</button>
       <button id="findButton">Find Duplicate Images</button>
       <input style="display:none;" multiple type="file" id="file" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
+      <span id="status"></span>
       <div class="images">
       </div>
-      <img id="processing"/>
     </div>
     <script type="module" src="/src/main.ts"></script>
     <script>
@@ -32,6 +32,11 @@
       
       window.onload = function(){
         finder = new DuplicateDocumentImageFinder();
+        const logger = (info) => {
+          console.log(info);
+          document.getElementById("status").innerText = info.status + ": " + info.progress;
+        }
+        finder.setTessLogger(logger);
         console.log(finder);
         registerEvents();
       }
@@ -57,10 +62,11 @@
           //let similar = await finder.detect(images[0],images[1]);
           //console.log(similar);
           const callback = (info) => {
-            console.log(info);
+            document.getElementById("status").innerText = info;
           }
           let duplicates = await finder.find(images,undefined,callback);
           console.log(duplicates);
+          document.getElementById("status").innerText = "Done";
           for (let index = 0; index < images.length; index++) {
             const img = images[index];
             const tr = img.parentElement.parentElement;
