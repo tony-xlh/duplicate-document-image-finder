@@ -5,6 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      table img {
+        max-width: 150px;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
@@ -32,13 +41,61 @@
         })
       }
 
-      function loadImageFromFile(){
+      async function loadImageFromFile(){
         let fileInput = document.getElementById("file");
         let files = fileInput.files;
         if (files.length == 0) {
           return;
         }
         console.log(files);
+        let table = templateTable();
+        let body = table.getElementsByTagName("tbody")[0];
+        for (let index = 0; index < files.length; index++) {
+          const file = files[index];
+          let dataURL = await readFileAsDataURL(file);
+          let row = document.createElement("tr");
+          let imageCell = document.createElement("td");
+          let statusCell = document.createElement("td");
+          let img = document.createElement("img");
+          img.src = dataURL;
+          imageCell.appendChild(img);
+          row.appendChild(imageCell);
+          row.appendChild(statusCell);
+          body.appendChild(row);
+        }
+        let imagesContainer = document.getElementsByClassName("images")[0];
+        imagesContainer.innerHTML = table.outerHTML;
+      }
+
+      function readFileAsDataURL(file){
+        return new Promise((resolve, reject) => {
+          let fileReader = new FileReader();
+          fileReader.onload = function(e){
+            resolve(e.target.result);
+          };
+          fileReader.onerror = function () {
+            console.warn('oops, something went wrong.');
+            reject("error");
+          };
+          fileReader.readAsDataURL(file);
+        })
+      }
+
+      function templateTable(){
+        let table = document.createElement("table");
+        let head = document.createElement("thead");
+        let headRow = document.createElement("tr");
+        let th1 = document.createElement("th");
+        th1.innerText = "Image";
+        let th2 = document.createElement("th");
+        th2.innerText = "Is Duplicate";
+        headRow.appendChild(th1);
+        headRow.appendChild(th2);
+        head.appendChild(headRow);
+        let body = document.createElement("tbody");
+        table.appendChild(head);
+        table.appendChild(body);
+        return table;
       }
     </script>
     <script async src="/opencv.js" type="text/javascript"></script>
