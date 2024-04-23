@@ -1,0 +1,56 @@
+{
+  "name": "duplicate-document-image-finder",
+  "private": false,
+  "version": "0.1.1",
+  "type": "module",
+  "main": "./dist/duplicate-document-image-finder.umd.cjs",
+  "module": "./dist/duplicate-document-image-finder.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/duplicate-document-image-finder.js"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/duplicate-document-image-finder.umd.cjs"
+    }
+  },
+  "files": [
+    "dist/*.css",
+    "dist/*.js",
+    "dist/*.cjs",
+    "dist/*.d.ts"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://github.com/tony-xlh/duplicate-document-image-finder",
+  "author": "xulihang <xulihanghai@gmail.com> (https://github.com/xulihang)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tony-xlh/duplicate-document-image-finder/issues"
+  },
+  "homepage": "https://github.com/tony-xlh/duplicate-document-image-finder#readme",
+  "keywords": [
+    "document",
+    "scanning",
+    "image-processing",
+    "dynamsoft"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.9.0"
+  },
+  "dependencies": {
+    "leven": "^4.0.0",
+    "tesseract.js": "^5.0.5"
+  }
+}
