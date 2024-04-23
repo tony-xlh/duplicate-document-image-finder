@@ -34,7 +34,7 @@
         finder = new DuplicateDocumentImageFinder();
         const logger = (info) => {
           console.log(info);
-          document.getElementById("status").innerText = info.status + ": " + info.progress;
+          document.getElementById("status").innerText = info.status + ": " + info.progress.toFixed(2);
         }
         finder.setTessLogger(logger);
         console.log(finder);
